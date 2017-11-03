@@ -1,0 +1,118 @@
+body html {
+  height: 100%;
+}
+
+body {
+  /*Image from unsplash https://unsplash.com/@andyoneru*/
+  background: url(https://source.unsplash.com/-WW8jBak7bo);
+  background-size: cover;
+  margin: 0;
+  height: 25em;
+  height: 100vh;
+}
+
+.calculator {
+  min-height: 560px;
+  width: 330px;
+  border: 2px solid black;
+  margin: auto;
+  background-color: #f3ede1;
+  box-shadow: 3px 3px rgba(0, 0, 0, 0.61);
+  padding: 20px;
+  border-radius: 2%;
+}
+
+button {
+  width: 20%;
+  height: 17%;
+  margin: 1.6%;
+  background-color: #f7f7f7;
+  outline: none;
+  font-size: 2em;
+}
+
+.clear {
+  background-color: red;
+}
+
+.operators,.posNeg,.perc {
+  background-color: #c3c3c3;
+}
+
+#label{
+  margin: 10px;
+}
+
+.current{
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  font-size: 80px;
+  margin-right: 10px;
+}
+
+.history {
+  position: absolute;
+  right: 0;
+  margin-right: 10px;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+li span{
+  float: right;
+  margin-left: 20px;
+}
+
+li span i:hover{
+  color: red;
+}
+
+.screen {
+  background-color: #445040;
+  color: white;
+  height: 150px;
+  font-size: 20px;
+  position: relative;
+  transition: 0.2s;
+  margin-right: 0px;
+  border: 1px solid #545353;
+  overflow: scroll;
+}
+
+
+.fullScreen {
+  height: 560px;
+}
+
+.keyBoard {
+  text-align: center;
+  padding-top: 12px;
+  background-color: #f3ede1;
+  padding: 0;
+  height: 410px;
+  overflow-y: hidden;
+  transition: 0.2s;
+}
+
+
+.equal {
+  width: 44%;
+  margin-left: 1.8%;
+  margin-right: 2.8%;
+  background-color: green;
+}
+
+.invisible {
+  display: none;
+}
+
+@media screen and (min-width:700px) {
+  .calculator {
+    margin-top: 100px;
+  }
+}
