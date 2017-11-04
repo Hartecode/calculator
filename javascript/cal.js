@@ -2,7 +2,8 @@ $( document ).ready(function() {
   var firstInputs = "",
       num = "0",
       opr = "",
-      historyInput = "";
+      historyInput = "",
+      answer;
 
 
   //this object holds different operator functions
@@ -45,7 +46,7 @@ $( document ).ready(function() {
     }
   });
 
-  //percentracge
+  //click fucntion for percentage
   $(".perc").click(function(){
     //if there no decimal then enter a decimal
     if($(".current").text().indexOf(".") < 0){
@@ -63,14 +64,18 @@ $( document ).ready(function() {
   //click function which applies an selected operator to the calculation
   $(".operators").click(function(){
     if(opr != ""){
-      firstInputs = operators[opr](firstInputs, num);
-      opr = $(this).text();
-      historyInput += num +" " + opr + " ";
-      $(".current").text(firstInputs);
-      num = "";
-
-    } else {
-      firstInputs = num;;
+      if(num === ""){
+        opr = $(this).text();
+        historyInput = historyInput.replace(historyInput[historyInput.length - 2], opr);
+      } else {
+        firstInputs = operators[opr](firstInputs, num);
+        opr = $(this).text();
+        historyInput += num +" " + opr + " ";
+        $(".current").text(firstInputs);
+        num = "";
+      }
+    } else  {
+      firstInputs = num;
       opr = $(this).text();
       historyInput += num +" " + opr + " ";
       num = "";
@@ -79,9 +84,14 @@ $( document ).ready(function() {
 
   //click fuction which executes the calculation
   $(".equal").click(function(){
-    history();
-    num = operators[opr](firstInputs, num);
-    $(".current").text(num);
+    if(num === ""){
+      num = "NaN";
+      history();
+      $(".current").text(answer);
+    } else {
+      history();
+      $(".current").text(answer);
+    }
     $(".current").css("font-size", "80px");
     reset();
     doResize();
@@ -96,7 +106,12 @@ $( document ).ready(function() {
 
   //post the full calculation for latter review
   function history(){
-    $("ul").append("<li><span class='delete'><i class='fa fa-trash' aria-hidden='true'></i></span><span class='entry'>" + historyInput+ num +" = " + operators[opr](firstInputs, num) + "</span>  </li>");
+    if(num === "NaN") {
+      answer = "error";
+    } else {
+      answer = operators[opr](firstInputs, num);
+    }
+    $("ul").append("<li><span class='delete'><i class='fa fa-trash' aria-hidden='true'></i></span><span class='entry'>" + historyInput+ num +" = " + answer + "</span>  </li>");
     historyInput = "";
   }
 
@@ -147,10 +162,8 @@ $( document ).ready(function() {
         size = size - tenPer;
         $('.current').css('font-size',size +'px');
         cW = $(".current").width();
-        console.log(cW);
       }
     }
   }
-
 
 });
