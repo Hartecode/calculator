@@ -32,6 +32,7 @@ $( document ).ready(function() {
       num += $(this).text();
       $(".current").text(num);
     }
+    $(".current").css("font-size", "80px");
     doResize();
   });
 
@@ -81,7 +82,9 @@ $( document ).ready(function() {
     history();
     num = operators[opr](firstInputs, num);
     $(".current").text(num);
+    $(".current").css("font-size", "80px");
     reset();
+    doResize();
   });
 
   //reset fucntion
@@ -117,7 +120,6 @@ $( document ).ready(function() {
       $(".history").removeClass("invisible");
       $(".current").hide();
       $(".keyBoard").css("height", "0");
-
       $(".screen").addClass("fullScreen");
     }else {
       //change up arrow to down arrow
@@ -134,20 +136,21 @@ $( document ).ready(function() {
     }
   });
 
-  //function that chnages the font size of the numbers in screen
-
+  //function that changes the font size of the numbers in screen
   function doResize() {
-    // FONT SIZE
     var cW = $(".current").width();
-    var maxW = 330;
+    var maxW = 325;
     var size = $(".current").css("font-size").replace(/\D/g, "");
     var tenPer = Math.floor(size *.1);
     if(cW >= maxW){
-      size = size - tenPer;
-      $('.current').css('font-size',size +'px');
-      console.log(size);
-      console.log(cW);
+      while(cW >= maxW){
+        size = size - tenPer;
+        $('.current').css('font-size',size +'px');
+        cW = $(".current").width();
+        console.log(cW);
+      }
     }
   }
+
 
 });
