@@ -9,6 +9,7 @@ body {
   margin: 0;
   height: 25em;
   height: 100vh;
+  font-family: 'Roboto Mono', monospace;
 }
 
 .calculator {
@@ -20,15 +21,17 @@ body {
   box-shadow: 3px 3px rgba(0, 0, 0, 0.61);
   padding: 20px;
   border-radius: 2%;
+  overflow-x: hidden;
 }
 
 button {
+  font-family: 'Roboto Mono', monospace;
   width: 20%;
   height: 17%;
-  margin: 1.6%;
+  margin: 1.4%;
   background-color: #f7f7f7;
   outline: none;
-  font-size: 2em;
+  font-size: 1.8em;
 }
 
 .clear {
@@ -55,21 +58,41 @@ button {
   position: absolute;
   right: 0;
   margin-right: 10px;
+  margin-top: 15px;
+}
+
+.fa-arrow-up:hover, .fa-arrow-down:hover {
+  font-size: 23px;
 }
 
 ul {
   list-style: none;
   margin: 0;
   padding: 0;
+  width: 310px;
 }
 
-li span{
-  float: right;
-  margin-left: 20px;
+li{
+  min-height: 30px;
+  padding: 0 10px;
+}
+li:nth-child(2n) {
+  background-color: #4e5f49;
 }
 
-li span i:hover{
+.delete{
   color: red;
+  width: 0;
+  display: inline-block;
+  /*this applies for the animation */
+  transition: 0.2s linear;
+  opacity: 0;
+}
+
+
+li:hover span{
+  width: 40px;
+  opacity: 1.0;
 }
 
 .screen {
@@ -81,12 +104,19 @@ li span i:hover{
   transition: 0.2s;
   margin-right: 0px;
   border: 1px solid #545353;
-  overflow: scroll;
+  overflow-x: hidden;
 }
 
 
 .fullScreen {
   height: 560px;
+  overflow-y: scroll;
+/*   hides the scroll bar for Internet Explorer and Microsoft Edge */
+  -ms-overflow-style: none;
+}
+/* to hide the scroll bar in the history meanu for chrome */
+::-webkit-scrollbar {
+    display: none;
 }
 
 .keyBoard {
@@ -102,7 +132,7 @@ li span i:hover{
 
 .equal {
   width: 44%;
-  margin-left: 1.8%;
+  margin-left: 1.7%;
   margin-right: 2.8%;
   background-color: green;
 }

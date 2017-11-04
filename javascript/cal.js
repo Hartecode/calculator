@@ -1,4 +1,3 @@
-
 $( document ).ready(function() {
   var firstInputs = "",
       num = "0",
@@ -16,12 +15,6 @@ $( document ).ready(function() {
     "+/-": function(a){ return a * -1}
   };
 
-  //reset fucntion
-  function reset(){
-    firstInputs = "";
-    num = "0";
-    opr = "";
-  }
 
   //click function which resets the calculator
   $(".clear").click(function(){
@@ -35,14 +28,11 @@ $( document ).ready(function() {
     if(num === "0"){
       num = $(this).text();
       $(".current").text(num);
-      historyInput = num +" ";
-      numberSize();
     } else {
       num += $(this).text();
-      historyInput += num; +" ";
       $(".current").text(num);
-      numberSize();
     }
+    doResize();
   });
 
   //click fuction which incerts only one decimal
@@ -74,14 +64,14 @@ $( document ).ready(function() {
     if(opr != ""){
       firstInputs = operators[opr](firstInputs, num);
       opr = $(this).text();
-      historyInput += opr + " ";
+      historyInput += num +" " + opr + " ";
       $(".current").text(firstInputs);
       num = "";
 
     } else {
       firstInputs = num;;
       opr = $(this).text();
-      historyInput += opr + " ";
+      historyInput += num +" " + opr + " ";
       num = "";
     }
   });
@@ -92,17 +82,23 @@ $( document ).ready(function() {
     num = operators[opr](firstInputs, num);
     $(".current").text(num);
     reset();
-    numberSize();
   });
+
+  //reset fucntion
+  function reset(){
+    firstInputs = "";
+    num = "0";
+    opr = "";
+  }
 
   //post the full calculation for latter review
   function history(){
-    $("ul").append("<li>" + historyInput+ " = " + operators[opr](firstInputs, num) + "  <span><i class='fa fa-trash' aria-hidden='true'></i></span></li>");
+    $("ul").append("<li><span class='delete'><i class='fa fa-trash' aria-hidden='true'></i></span><span class='entry'>" + historyInput+ num +" = " + operators[opr](firstInputs, num) + "</span>  </li>");
     historyInput = "";
   }
 
   //Click on X to delete Todos
-  $("ul").on("click", "span", function(event){
+  $("ul").on("click", ".delete", function(event){
     $(this).parent().fadeOut(500,function(){
       $(this).remove();
     });
@@ -128,7 +124,7 @@ $( document ).ready(function() {
       $(this).removeClass("fa-arrow-up");
       $(this).addClass("fa-arrow-down");
       //change calculator to histroy
-      $("#label").text("histroy");
+      $("#label").text("history");
       $(".screen").removeClass("fullScreen");
       $(".keyBoard").css("height", "410px");
       //fade in the original calculator screen
@@ -139,14 +135,18 @@ $( document ).ready(function() {
   });
 
   //function that chnages the font size of the numbers in screen
-  function numberSize() {
-    var screenLength = $(".current").text().length;
-    if(screenLength > 10){
-      console.log(screenLength);
-      var reduce = 80 - (6* (screenLength -10));
-      $(".current").css("font-size", reduce.toString() + "px");
-    } else{
-      $(".current").css("font-size", "80px");
+
+  function doResize() {
+    // FONT SIZE
+    var cW = $(".current").width();
+    var maxW = 330;
+    var size = $(".current").css("font-size").replace(/\D/g, "");
+    var tenPer = Math.floor(size *.1);
+    if(cW >= maxW){
+      size = size - tenPer;
+      $('.current').css('font-size',size +'px');
+      console.log(size);
+      console.log(cW);
     }
   }
 
