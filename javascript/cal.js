@@ -73,6 +73,8 @@ $( document ).ready(function() {
         historyInput += num +" " + opr + " ";
         $(".current").text(firstInputs);
         num = "";
+        $(".current").css("font-size", "80px");
+        doResize();
       }
     } else  {
       firstInputs = num;
@@ -115,7 +117,7 @@ $( document ).ready(function() {
     historyInput = "";
   }
 
-  //Click on X to delete Todos
+  //Click on X to delete history input
   $("ul").on("click", ".delete", function(event){
     $(this).parent().fadeOut(500,function(){
       $(this).remove();
